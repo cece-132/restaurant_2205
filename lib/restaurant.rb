@@ -1,7 +1,7 @@
 require 'pry'
 
 class Restaurant
-    attr_reader :dishes, :name, :opening_time, :closed, :closing_announce_time
+    attr_reader :dishes, :name, :opening_time
     def initialize(opening_time, name)
       @name = name
       @opening_time = format(opening_time)

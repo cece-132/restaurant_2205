@@ -82,7 +82,7 @@ RSpec.describe Restaurant do
     end
   end
 
-  describe "#announce_closing_time" do
+  describe '#announce_closing_time' do
     it 'change the format of the end time to a 12-hr format' do
       restaurant1 = Restaurant.new('6:00', 'Fuel Cafe')
       restaurant2 = Restaurant.new('16:00', 'Il Posto')
@@ -92,4 +92,12 @@ RSpec.describe Restaurant do
       expect(restaurant2.announce_closing_time(7)).to eq("Il Posto will be closing at 11:00PM")
     end
   end
+
+  describe '#format(time)' do
+    it 'should format the time into 5-digit format' do
+      restaurant = Restaurant.new('6:00', 'Fuel Cafe')
+      expect(restaurant.format('6:00')).to eq('06:00')
+    end
+  end
+  
 end
