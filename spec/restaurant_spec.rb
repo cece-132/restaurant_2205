@@ -1,29 +1,24 @@
 require './lib/restaurant'
 
 RSpec.describe Restaurant do
-  describe "Iteration 1" do
-    it "exists" do
-      restaurant = Restaurant.new('10:00', 'Fuel Cafe')
-      expect(restaurant).to be_an_instance_of Restaurant
-    end
 
-    # These tests are skipped - remove the "x" from "xit" so that each test
-    # line reads "it" in order to run each test. 
-    it "has opening time" do
-      restaurant = Restaurant.new('10:00', 'Fuel Cafe')
-      expect(restaurant.opening_time).to eq("10:00")
-    end
+  before :each do
+    @restaurant = Restaurant.new('10:00', 'Fuel Cafe')
+  end
 
-    it "has a name" do
-      restaurant = Restaurant.new('10:00', 'Fuel Cafe')
-      expect(restaurant.name).to eq("Fuel Cafe")
-    end
+  describe '#initialize' do
+    it "exists and has attributes" do
+      expect(@restaurant).to be_a Restaurant
 
-    it "has no dishes to start" do
-      restaurant = Restaurant.new('10:00', 'Fuel Cafe')
-      expect(restaurant.dishes).to eq([])
-    end
+      expect(@restaurant.opening_time).to be_a String
+      expect(@restaurant.opening_time).to eq("10:00")
 
+      expect(@restaurant.name).to be_a String
+      expect(@restaurant.name).to eq("Fuel Cafe")
+
+      expect(restaurant.dishes).to be_a Array
+      expect(restaurant.dishes).to be_empty
+    end
   end
 
   describe "Iteration 2" do
