@@ -4,6 +4,8 @@ RSpec.describe Restaurant do
 
   before :each do
     @restaurant = Restaurant.new('10:00', 'Fuel Cafe')
+    @restaurant1 = Restaurant.new('10:00', 'Fuel Cafe')
+    @restaurant2 = Restaurant.new('16:00', 'Il Poggio')
   end
 
   describe '#initialize' do
@@ -16,31 +18,31 @@ RSpec.describe Restaurant do
       expect(@restaurant.name).to be_a String
       expect(@restaurant.name).to eq("Fuel Cafe")
 
-      expect(restaurant.dishes).to be_a Array
-      expect(restaurant.dishes).to be_empty
+      expect(@restaurant.dishes).to be_a Array
+      expect(@restaurant.dishes).to be_empty
     end
   end
 
-  describe "Iteration 2" do
+  describe 'closing_time(12_hr_time)' do
+    it "takes in the number of hours open and adds the number to the opening time" do
+      expect(@restaurant1.closing_time(8)).to be_a String
 
-    it "has closing time" do
-      restaurant1 = Restaurant.new('10:00', 'Fuel Cafe')
-      restaurant2 = Restaurant.new('16:00', 'Il Poggio')
-
-      expect(restaurant1.closing_time(8)).to eq("18:00")
-      expect(restaurant2.closing_time(7)).to eq("23:00")
+      expect(@restaurant1.closing_time(8)).to eq("18:00")
+      expect(@restaurant2.closing_time(7)).to eq("23:00")
     end
+  end
 
+  describe '#add_dishes(dish)' do 
     it "can add dishes" do
       restaurant = Restaurant.new('16:00', 'Il Poggio')
+
       restaurant.add_dish('Burrata')
       restaurant.add_dish('Pizzetta')
       restaurant.add_dish('Ravioli')
 
+      expect(restaurant.dishes.count).to eq 3
       expect(restaurant.dishes).to eq(['Burrata', 'Pizzetta', 'Ravioli'])
-
     end
-
   end
 
   describe "Iteration 3" do
