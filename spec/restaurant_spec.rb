@@ -23,7 +23,7 @@ RSpec.describe Restaurant do
     end
   end
 
-  describe 'closing_time(12_hr_time)' do
+  describe '#closing_time(12_hr_time)' do
     it "takes in the number of hours open and adds the number to the opening time" do
       expect(@restaurant1.closing_time(8)).to be_a String
 
@@ -41,42 +41,55 @@ RSpec.describe Restaurant do
       restaurant.add_dish('Ravioli')
 
       expect(restaurant.dishes.count).to eq 3
-      expect(restaurant.dishes).to eq(['Burrata', 'Pizzetta', 'Ravioli'])
+      expect(restaurant.dishes).to eq(["Burrata", "Pizzetta", "Ravioli"])
     end
   end
 
-  describe "Iteration 3" do
-
-    it 'is open for lunch' do
+  describe '#open_for_lunch?' do
+    it 'if open before 12:00 returns true' do
       restaurant1 = Restaurant.new('10:00', 'Fuel Cafe')
-      restaurant2 = Restaurant.new('16:00', 'Il Posto')
       
       expect(restaurant1.open_for_lunch?).to eq(true)
-      expect(restaurant2.open_for_lunch?).to eq(false)
     end
 
-    it 'can add_dish to menu' do
-      restaurant1 = Restaurant.new('10:00', 'Fuel Cafe')
+    it 'if open after 12:00 returns false' do
       restaurant2 = Restaurant.new('16:00', 'Il Posto')
 
-      restaurant2.add_dish('Burrata')
-      restaurant2.add_dish('Pizzetta')
-      restaurant2.add_dish('Ravioli')
-
-      expect(restaurant2.menu_dish_names).to eq(["BURRATA", "PIZZETTA", "RAVIOLI"])
+      expect(restaurant2.open_for_lunch?).to eq(false)
     end
-
   end
 
-  describe "Iteration 4" do
+  
+  describe '#menu_dish_names' do
+    it 'opening time > 12 returns dishes in the downcase position' do
+      restaurant = Restaurant.new('16:00', 'Il Poggio')
 
-    it 'can announce closing time' do
+      restaurant.add_dish('Burrata')
+      restaurant.add_dish('Pizzetta')
+      restaurant.add_dish('Ravioli')
+
+      expect(restaurant.menu_dish_names).to eq(["Burrata", "Pizzetta", "Ravioli"])
+    end
+
+    it 'opening time < 12 returns dishes in the upcase position' do
+      restaurant = Restaurant.new('10:00', 'Fuel Cafe')
+
+      restaurant.add_dish('Burrata')
+      restaurant.add_dish('Pizzetta')
+      restaurant.add_dish('Ravioli')
+
+      expect(restaurant.menu_dish_names).to eq(["BURRATA", "PIZZETTA", "RAVIOLI"])
+    end
+  end
+
+  describe "#announce_closing_time" do
+    it 'change the format of the end time to a 12-hr format' do
       restaurant1 = Restaurant.new('6:00', 'Fuel Cafe')
       restaurant2 = Restaurant.new('16:00', 'Il Posto')
 
+      expect(restaurant1.announce_closing_time(5)).to be_a String
       expect(restaurant1.announce_closing_time(5)).to eq("Fuel Cafe will be closing at 11:00AM")
       expect(restaurant2.announce_closing_time(7)).to eq("Il Posto will be closing at 11:00PM")
     end
-
   end
 end
